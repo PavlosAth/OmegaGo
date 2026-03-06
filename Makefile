@@ -6,7 +6,7 @@
 CC = gcc
 
 ## Compiler flags - do not change
-CFLAGS = -static -Wall -Wextra -Werror -pedantic -O3
+CFLAGS = -Wall -Wextra -Werror -pedantic -O3
 
 ## Linking flags - do not change
 LDFLAGS = $(CFLAGS)
