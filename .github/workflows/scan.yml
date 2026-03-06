@@ -34,6 +34,7 @@ jobs:
         with:
           command: cves,recommendations,compare,sbom
           image: ${{ github.event.inputs.docker_image }}
+          only-severities: critical,high
           exit-code: false
           sarif-file: sca_scout.sarif
           output: sbom_scout.spdx.json
