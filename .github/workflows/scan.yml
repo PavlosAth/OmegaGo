@@ -1,19 +1,12 @@
-## Scan a docker image -> get a SARIF/SBOM report
-
 name: SBOM/SCA Scout
 
 on:
   workflow_dispatch:
     inputs:
-        docker_image:
-          description: 'The Docker image to scan'
-          required: true
-          default: 'gcc:latest'
-
-# env:
-#   REGISTRY: ghcr.io
-#   IMAGE_NAME: ${{ github.repository }}
-#   SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
+      docker_image:
+        description: 'The Docker image to scan'
+        required: true
+        default: 'gcc:latest'
 
 jobs:
   scout:
@@ -33,14 +26,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    #   - name: Login to GHCR
-    #     uses: docker/login-action@v3
-    #     with:
-    #       registry: ${{ env.REGISTRY }}
-    #       username: ${{ github.actor }}
-    #       password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Pull the github input image or use the default
       - name: Pull the image
         run: docker pull ${{ github.event.inputs.docker_image }}
 
@@ -49,9 +34,7 @@ jobs:
         with:
           command: cves,recommendations,compare,sbom
           image: ${{ github.event.inputs.docker_image }}
-          #only-severities: critical,high # only show critical and high CVEs
-          #only-fixed: true # filter to fixed CVEs
-          exit-code: false  # fail or not based on CVEs found?
+          exit-code: false
           sarif-file: sca_scout.sarif
           output: sbom_scout.spdx.json
           format: spdx
@@ -68,7 +51,6 @@ jobs:
           name: sca_scout.sarif
           path: sca_scout.sarif
 
-      # Only available on Github Enterprise or public repositories
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
@@ -77,3 +59,5 @@ jobs:
 
       - name: SBOM upload
         uses: advanced-security/spdx-dependency-submission-action@v0.1.1
+        with:
+          filePath: sbom_scout.spdx.json
