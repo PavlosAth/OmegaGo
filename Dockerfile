@@ -3,9 +3,9 @@ WORKDIR /app
 COPY . .
 RUN make
 
-FROM alpine:latest
-RUN apk update 
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /usr/local/bin
 COPY --from=builder /app/goteam .
-RUN chmod +x /usr/local/bin/goteam
 CMD ["./goteam"]
