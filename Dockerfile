@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN make
 
-FROM alpine
+FROM alpine:3.21
 
 WORKDIR /usr/local/bin
 COPY --from=builder /app/goteam .
