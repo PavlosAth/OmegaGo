@@ -1,24 +1,12 @@
-## Short makefile to compile my Go engine
-
-## You SHOULD NOT modify the parameters below
-
-## Compiler to use - do not change
 CC = gcc
 
-## Compiler flags - do not change
-CFLAGS = -Wall -Wextra -Werror -pedantic -O3
-
-## Linking flags - do not change
+CFLAGS = -Wall -Wextra -Werror -pedantic -O3 -static
 LDFLAGS = $(CFLAGS)
 
-## The name of the binary (executable) file - do not change
 TARGET ?= goteam
 
-## Build the target by default
 all: $(TARGET)
 
-## You can change everything below to make your target compile,
-## link, clean or do anything else you'd like.
 
 EXTRA_CFLAGS = -flto -ffast-math
 EXTRA_LDFLAGS = -flto 
