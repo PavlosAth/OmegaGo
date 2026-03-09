@@ -31,4 +31,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/omegago:latest
+          tags: ghcr.io/pavlosath/omegago:latest
