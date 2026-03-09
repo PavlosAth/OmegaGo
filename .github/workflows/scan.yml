@@ -38,7 +38,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-``
+
       - name: Pull the image
         run: docker pull ${{ github.event.inputs.docker_image }}
 
